@@ -146,8 +146,9 @@ namespace kkk {
 
     /**
      * 明るさセンサーの値をluxで返します
+     * @param format number format, eg: OutputNumberFormat.INTEGER
      */
-    //% blockId=light_level block="明るさ[lux]"
+    //% blockId=light_level block="明るさ[lux]|| %format"
     //% weight=55
     //% group="明るさセンサー"
     export function light_level(format: OutputNumberFormat = OutputNumberFormat.INTEGER): number {
