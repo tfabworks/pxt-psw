@@ -9,9 +9,9 @@
     "stem.isTemperatureHigh|block": "暑い",
     "stem.gtTemperatureHigh|block": "%temperatureThreshold|℃より%settingHotOrCold|",
     "stem.isMove|block": "micro:bitが動いた",
-    "stem.humanDetection|block": "人が動いた",
+    "kkk.is_man_moving|block": "人が動いた",
     "kkk.is_dark|block": "暗い",
     "kkk.get_temperature|block": "温度[℃] ",
     "kkk.turn_on|block": "スイッチON",
-    "kkk.turn_off|block": "スイッチOFF",
+    "kkk.turn_off|block": "スイッチOFF"
 }
