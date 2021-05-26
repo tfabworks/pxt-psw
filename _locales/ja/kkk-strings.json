@@ -1,0 +1,17 @@
+{
+    "DARK_BRIGHT.IS_BRIGHT|block": "明るい",
+    "DARK_BRIGHT.IS_DARK|block": "暗い",
+    "HOT_COLD.HOT|block": "熱い",
+    "HOT_COLD.COLD|block": "冷たい",
+    "OutputNumberFormat.INTEGER|block":"整数",
+    "OutputNumberFormat.FLOAT|block": "小数",        
+    "stem.brightnessDetermination|block": "%lightThreshold|より%settingDarkOrBright|",
+    "stem.isTemperatureHigh|block": "暑い",
+    "stem.gtTemperatureHigh|block": "%temperatureThreshold|℃より%settingHotOrCold|",
+    "stem.isMove|block": "micro:bitが動いた",
+    "stem.humanDetection|block": "人が動いた",
+    "kkk.is_dark|block": "暗い",
+    "kkk.get_temperature|block": "温度[℃] ",
+    "kkk.turn_on|block": "スイッチON",
+    "kkk.turn_off|block": "スイッチOFF",
+}

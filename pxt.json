@@ -8,15 +8,18 @@
     },
     "files": [
         "README.md",
-        "main.blocks",
-        "main.ts"
+        "main.ts",
+        "ds18b20/ds18b20.ts",
+        "ds18b20/ds18b20.cpp",
+        "_locales/ja/kkk-strings.json"
     ],
     "testFiles": [
+        "test.blocks",
         "test.ts"
     ],
     "public": true,
     "supportedTargets": [
         "microbit"
     ],
-    "preferredEditor": "blocksprj"
+    "preferredEditor": "tsprj"
 }
