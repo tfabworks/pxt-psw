@@ -44,7 +44,7 @@ namespace kkk {
     /**
      * 人感センサーが反応しているとき真を返します。
      */
-    //% blockId=is_man_moving block="Is Human moving"
+    //% blockId=is_man_moving block="人が動いた"
     //% weight=75
     //% group="人感センサー"
     export function is_man_moving(): boolean {
