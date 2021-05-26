@@ -18,7 +18,7 @@ enum OutputNumberFormat {
     FLOAT = 1
 }
 
-//% weight=70 icon="\uf0e7" color=#d2691e block="elec|"
+//% weight=70 icon="\uf0e7" color=#d2691e block="How to use electricity"
 namespace kkk {
 
     /**
