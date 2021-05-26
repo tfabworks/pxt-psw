@@ -7,6 +7,7 @@
     "OutputNumberFormat.FLOAT|block": "小数",
     "kkk.is_dark|block": "暗い",
     "kkk.get_temperature|block": "温度[℃] ",
+    "kkk.is_man_moving|block":"人が動いた"
     "kkk.turn_on|block": "スイッチON",
     "kkk.turn_off|block": "スイッチOFF"
 }
