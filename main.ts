@@ -184,13 +184,13 @@ namespace kkk {
     //% group="温度センサー"
     export function gt_temperature(temperatureThreshold: number, settingHotCold: HOT_COLD): boolean {
         if (settingHotCold === HOT_COLD.HOT) {
-            if (input.temperature() > temperatureThreshold) {
+            if ( get_temperature( OutputNumberFormat.FLOAT ) > temperatureThreshold) {
                 return true;
             }
             return false;
         }
         if (settingHotCold === HOT_COLD.COLD) {
-            if (input.temperature() < temperatureThreshold) {
+            if ( get_temperature( OutputNumberFormat.FLOAT ) < temperatureThreshold) {
                 return true;
             }
             return false;
