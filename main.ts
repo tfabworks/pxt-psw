@@ -22,7 +22,7 @@ enum OutputNumberFormat {
 namespace kkk {
 
     /**
-     * 自動スイッチをONします。
+     * Turn ON the controlled-switch
      */
     //% blockId=turn_on block="Switch Turn ON"
     //% weight=90
@@ -32,7 +32,7 @@ namespace kkk {
     }
 
     /**
-     * 自動スイッチをOFFします。
+     * Turn OFF the controlled-switch
      */
     //% blockId=turn_off block="Switch Turn OFF"
     //% weight=80
@@ -42,9 +42,9 @@ namespace kkk {
     }
 
     /**
-     * 人感センサーが反応しているとき真を返します。
+     * Return PIR Motion sensor value.
      */
-    //% blockId=is_man_moving block="人が動いた"
+    //% blockId=is_man_moving block="is human moving"
     //% weight=75
     //% group="人感センサー"
     export function is_man_moving(): boolean {
@@ -56,14 +56,14 @@ namespace kkk {
     }
 
     let _今まで暗い: boolean = false;
-    const _暗い判定閾値: number = 100;
-    const _明るい判定閾値: number = 150;
+    const _暗い判定閾値: number = 4;
+    const _明るい判定閾値: number = 7;
     const _HYSTERESIS: number = _明るい判定閾値 - _暗い判定閾値;
 
     /**
-     * micro:bit本体の明るさセンサーが暗い場合（20未満）に真を返します。
+     * return true when the dark ( light level <5 )
      */
-    //% blockId=is_dark block="暗い"
+    //% blockId=is_dark block="is dark"
     //% weight=70
     //% group="明るさセンサー"
     export function is_dark(): boolean {
@@ -111,12 +111,12 @@ namespace kkk {
     }
 
     /**
-     * micro:bit本体の明るさセンサーがしきい値より暗い（または明るい）場合に真を返します。
-     * @param light_threshold 判定閾値, eg:100
+     * return true when darker/brighter than light threthold
+     * @param light_threshold 判定閾値, eg:5
      * @param dark_bright 暗いか明るいを指定, eg:暗い
      */
     //% blockId=gt_light_level
-    //% block="%light_threshold|luxより%dark_bright|"
+    //% block="%light_threshold|より%dark_bright|"
     //% light_threshold.min=0 light_threshold.max=255
     //% weight=60
     //% group="明るさセンサー"
@@ -144,23 +144,37 @@ namespace kkk {
         control.assert(false); return false;
     }
 
+    function light_level_lux(): number {
+        pins.i2cWriteNumber(
+        72,
+        0,
+        NumberFormat.Int16LE,
+        false
+        )
+        pins.i2cWriteNumber(
+        72,
+        4,
+        NumberFormat.UInt8LE,
+        true
+        )
+
+        return (0.0288 * pins.i2cReadNumber(72, NumberFormat.UInt16LE, false))
+    }
+
     /**
-     * 明るさセンサーの値をluxで返します
-     * @param format number format, eg: OutputNumberFormat.INTEGER
+     * return light sensor value:0-255
      */
-    //% blockId=light_level block="明るさ[lux]|| %format"
+    //% blockId=light_level block="light level"
     //% weight=55
     //% group="明るさセンサー"
     export function light_level(format: OutputNumberFormat = OutputNumberFormat.INTEGER): number {
-        pins.i2cWriteNumber(72, 0, NumberFormat.UInt8LE, true)
-        pins.i2cWriteNumber(72, 0, NumberFormat.UInt8LE, false)
-        pins.i2cWriteNumber(72, 4, NumberFormat.UInt8LE, true)
-        return (0.0288 * pins.i2cReadNumber(72, NumberFormat.UInt16LE, false))
+//        return light_level_lux();
+        return Math.round(Math.constrain( Math.map( light_level_lux(), 0, 60, 0, 255), 0, 255))
     }
 
 
     /**
-     * micro:bit本体の温度センサーが、しきい値より熱い（または冷たい）場合に真を返します。
+     * return true when sensor is hot/cold than threthold
      * @param temperatureThreshold 判定閾値, eg: 30
      * @param settingHotCold 熱いか冷たいを指定, eg:熱い
      */
@@ -185,11 +199,11 @@ namespace kkk {
     }
 
     /**
-     * 温度[℃]を返します。
+     * return temperature degC.
      * @param format number format, eg: OutputNumberFormat.INTEGER
      */
     //% blockId = get_temperature
-    //% block="温度[℃]|| %format"
+    //% block="temperature [degC]|| %format"
     //% weight=45
     //% group="温度センサー"
     export function get_temperature(format: OutputNumberFormat = OutputNumberFormat.INTEGER): number {
@@ -200,10 +214,10 @@ namespace kkk {
     }
 
     /**
-     * micro:bit本体が揺り動かされた場合に真を返します。
+     * return true when the micro:bit is moved.
      */
     //% blockId=is_move
-    //% block="ゆれた"
+    //% block="is moved"
     //% weight=40
     //% group="micro:bit本体"
     export function is_move(): boolean {
@@ -215,11 +229,11 @@ namespace kkk {
     }
 
     /**
-     * 指定された秒数の間、一時停止します。
+     * wait for designated seconds
      * @param sec 秒, eg: 1
      */
     //% blockId=pause_sec
-    //% block="一時停止（秒）%sec"
+    //% block="pause%sec"
     //% weight=30
     //% group="micro:bit本体"
     export function pause_sec(sec: number) {
