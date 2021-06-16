@@ -1,1 +1,1 @@
-<xml xmlns="https://developers.google.com/blockly/xml"><block type="device_forever" id="J*0txc^sCTP/(k,|jxf[" x="0" y="0"><statement name="HANDLER"><block type="controls_if" id="ppl7!Y[xUb5(pfIQMI_@"><mutation else="1"/><value name="IF0"><shadow type="logic_boolean" id="PaPK@-MLi4W8t9jfGQCJ"><field name="BOOL">TRUE</field></shadow></value></block></statement></block></xml>
+<xml xmlns="https://developers.google.com/blockly/xml"><block type="device_forever" id="J*0txc^sCTP/(k,|jxf[" x="0" y="0"/></xml>

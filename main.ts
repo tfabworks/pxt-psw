@@ -210,7 +210,7 @@ namespace kkk {
         if (format === OutputNumberFormat.INTEGER) {
             return Math.round(DS18B20.Temperature() / 100.0);
         }
-        return DS18B20.Temperature() / 100.0;
+        return Math.round( DS18B20.Temperature() / 10.0 ) /10.0;
     }
 
     /**
