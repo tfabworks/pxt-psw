@@ -144,7 +144,14 @@ namespace kkk {
         control.assert(false); return false;
     }
 
-    function light_level_lux(): number {
+    let _mtx_light:boolean =false;
+
+    function _light_level_lux(): number {
+        while( _mtx_light  ) {
+            basic.pause(100);
+        }
+        _mtx_light = true;
+
         pins.i2cWriteNumber(
         72,
         0,
@@ -158,7 +165,9 @@ namespace kkk {
         true
         )
 
-        return (0.0288 * pins.i2cReadNumber(72, NumberFormat.UInt16LE, false))
+        const lux = 0.0288 * pins.i2cReadNumber(72, NumberFormat.UInt16LE, false);
+        _mtx_light = false;
+        return lux;
     }
 
     /**
@@ -169,7 +178,7 @@ namespace kkk {
     //% group="明るさセンサー"
     export function light_level(format: OutputNumberFormat = OutputNumberFormat.INTEGER): number {
 //        return light_level_lux();
-        return Math.round(Math.constrain( Math.map( light_level_lux(), 0, 60, 0, 255), 0, 255))
+        return Math.round(Math.constrain( Math.map( _light_level_lux(), 0, 60, 0, 255), 0, 255))
     }
 
 
@@ -198,6 +207,8 @@ namespace kkk {
         return false;
     }
 
+    let _mtx_temperature:boolean = false;
+
     /**
      * return temperature degC.
      * @param format number format, eg: OutputNumberFormat.INTEGER
@@ -207,10 +218,17 @@ namespace kkk {
     //% weight=45
     //% group="温度センサー"
     export function get_temperature(format: OutputNumberFormat = OutputNumberFormat.INTEGER): number {
-        if (format === OutputNumberFormat.INTEGER) {
-            return Math.round(DS18B20.Temperature() / 100.0);
+        while(_mtx_temperature) {
+            basic.pause(100)
         }
-        return Math.round( DS18B20.Temperature() / 10.0 ) /10.0;
+        _mtx_temperature = true;
+        const temperature = DS18B20.Temperature();
+        _mtx_temperature = false;
+        if (format === OutputNumberFormat.INTEGER) {
+            return Math.round(temperature / 100.0);
+        }
+        return temperature / 100.0;
+//        return Math.round( temperature / 10.0 ) /10.0;
     }
 
     /**

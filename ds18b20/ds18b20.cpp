@@ -3,6 +3,7 @@
 #include <cstdint>
 #include <math.h>
 
+
 using namespace pxt;
 
 namespace DS18B20 {
@@ -149,8 +150,9 @@ class microbitp : public MicroBitComponent
     }
 
 #define RETRY_NUMBER 4
+
     //%
-    int16_t Temperature() {
+    int16_t Temperature() {    
         static int retry = RETRY_NUMBER;
         pin = pin8;
         init();
