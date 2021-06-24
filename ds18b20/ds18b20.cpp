@@ -150,9 +150,15 @@ class microbitp : public MicroBitComponent
     }
 
 #define RETRY_NUMBER 4
+volatile int mtx=0;
 
     //%
-    int16_t Temperature() {    
+    int16_t Temperature() {
+        while(mtx) {
+            ;
+        }
+        mtx=1;
+
         static int retry = RETRY_NUMBER;
         pin = pin8;
         init();
@@ -170,6 +176,8 @@ class microbitp : public MicroBitComponent
         int b1 = data[0];
         int b2 = data[1];
         pin.deletep();
+        mtx=0;
+
         int16_t temp = (b2 << 8 | b1);
         if ( crc8(data, 8) != data[8] ) {
             if ( --retry <= 0 ) {
