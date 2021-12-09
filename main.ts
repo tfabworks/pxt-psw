@@ -18,7 +18,7 @@ enum OutputNumberFormat {
     FLOAT = 1
 }
 
-//% weight=70 icon="\uf0e7" color=#d2691e block="How to use electricity"
+//% weight=115 icon="\uf0e7" color=#d2691e block="How to use electricity"
 namespace kkk {
 
     /**
@@ -28,7 +28,7 @@ namespace kkk {
     //% weight=90
     //% group="スイッチ"
     export function turn_on(): void {
-        pins.digitalWritePin(DigitalPin.P1, 1);
+        pins.digitalWritePin(DigitalPin.P12, 1);
     }
 
     /**
@@ -38,7 +38,7 @@ namespace kkk {
     //% weight=80
     //% group="スイッチ"
     export function turn_off(): void {
-        pins.digitalWritePin(DigitalPin.P1, 0);
+        pins.digitalWritePin(DigitalPin.P12, 0);
     }
 
     /**
@@ -48,7 +48,7 @@ namespace kkk {
     //% weight=75
     //% group="人感センサー"
     export function is_man_moving(): boolean {
-        if (pins.digitalReadPin(DigitalPin.P2) == 1) {
+        if (pins.digitalReadPin(DigitalPin.P13) == 1) {
             return true;
         } else {
             return false;
@@ -153,19 +153,20 @@ namespace kkk {
         _mtx_light = true;
 
         pins.i2cWriteNumber(
-        72,
-        0,
+        0x29,
+        0x8001,
         NumberFormat.Int16LE,
         false
         )
+        
         pins.i2cWriteNumber(
-        72,
-        4,
+        0x29,
+        0x88,
         NumberFormat.UInt8LE,
         true
-        )
+        )        
 
-        const lux = 0.0288 * pins.i2cReadNumber(72, NumberFormat.UInt16LE, false);
+        const lux = 0.0288 * pins.i2cReadNumber(0x29, NumberFormat.UInt16LE, false);
         _mtx_light = false;
         return lux;
     }
