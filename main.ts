@@ -145,6 +145,7 @@ namespace kkk {
     }
 
     let _mtx_light:boolean =false;
+    let is_light_init:boolean = true;
 
     function _light_level_lux(): number {
         while( _mtx_light  ) {
@@ -152,21 +153,25 @@ namespace kkk {
         }
         _mtx_light = true;
 
-        pins.i2cWriteNumber(
-        0x29,
-        0x8001,
-        NumberFormat.Int16LE,
-        false
-        )
-        
-        pins.i2cWriteNumber(
-        0x29,
-        0x88,
-        NumberFormat.UInt8LE,
-        true
-        )        
+        if ( is_light_init === true ) {
+            basic.pause(100)
+//            pins.i2cWriteNumber( 41, 0x8019, NumberFormat.UInt16BE, false )
+            pins.i2cWriteNumber(41, 0x800D, NumberFormat.UInt16BE, false) // gain 8x
+            basic.pause(10)
+            is_light_init = false;
+        }
 
-        const lux = 0.0288 * pins.i2cReadNumber(0x29, NumberFormat.UInt16LE, false);
+        let data1, data2, data3, data4
+        pins.i2cWriteNumber( 41, 136, NumberFormat.UInt8BE, true )
+        data1 = pins.i2cReadNumber( 41, NumberFormat.UInt8BE, false)
+        pins.i2cWriteNumber(41, 137, NumberFormat.UInt8BE, true)
+        data2 = pins.i2cReadNumber(41, NumberFormat.UInt8BE, false)
+        pins.i2cWriteNumber(41, 138, NumberFormat.UInt8BE, true)
+        data3 = pins.i2cReadNumber(41, NumberFormat.UInt8BE, false)
+        pins.i2cWriteNumber(41, 139, NumberFormat.UInt8BE, true)
+        data4 = pins.i2cReadNumber(41, NumberFormat.UInt8BE, false)
+
+        const lux = data4*256 + data3;
         _mtx_light = false;
         return lux;
     }
@@ -178,8 +183,8 @@ namespace kkk {
     //% weight=55
     //% group="明るさセンサー"
     export function light_level(format: OutputNumberFormat = OutputNumberFormat.INTEGER): number {
-//        return light_level_lux();
-        return Math.round(Math.constrain( Math.map( _light_level_lux(), 0, 60, 0, 255), 0, 255))
+//        return _light_level_lux()
+        return Math.round(Math.constrain( Math.map( _light_level_lux(), 0, 3000, 0, 255), 0, 255))
     }
 
 

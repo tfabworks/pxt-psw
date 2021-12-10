@@ -1,8 +1,5 @@
 basic.forever(function () {
-	
-})
-basic.forever(function () {
-    basic.showNumber(kkk.get_temperature())
+    basic.showNumber(kkk.light_level())
 })
 basic.forever(function () {
 	
