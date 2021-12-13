@@ -155,8 +155,8 @@ namespace kkk {
 
         if ( is_light_init === true ) {
             basic.pause(100)
-//            pins.i2cWriteNumber( 41, 0x8019, NumberFormat.UInt16BE, false )
-            pins.i2cWriteNumber(41, 0x800D, NumberFormat.UInt16BE, false) // gain 8x
+            pins.i2cWriteNumber( 41, 0x8019, NumberFormat.UInt16BE, false ) // gain 48x
+//            pins.i2cWriteNumber(41, 0x800D, NumberFormat.UInt16BE, false) // gain 8x
             basic.pause(10)
             is_light_init = false;
         }
@@ -184,7 +184,7 @@ namespace kkk {
     //% group="明るさセンサー"
     export function light_level(format: OutputNumberFormat = OutputNumberFormat.INTEGER): number {
 //        return _light_level_lux()
-        return Math.round(Math.constrain( Math.map( _light_level_lux(), 0, 3000, 0, 255), 0, 255))
+        return Math.round(Math.constrain( Math.map( _light_level_lux()-10, 0, 500, 0, 255), 0, 255))
     }
 
 
