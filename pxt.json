@@ -10,9 +10,7 @@
         "README.md",
         "main.ts",
         "ds18b20/ds18b20.ts",
-        "ds18b20/ds18b20.cpp",
-        "_locales/ja/kkk-strings.json",
-        "_locales/ja/kkk-jsdoc-strings.json"
+        "ds18b20/ds18b20.cpp"
     ],
     "testFiles": [
         "test.blocks",
