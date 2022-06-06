@@ -1,9 +1,10 @@
 enum DARK_BRIGHT {
     //% block="明るい"
-    IS_DARK,
-    //% block="暗い"
     IS_BRIGHT,
+    //% block="暗い"
+    IS_DARK,
 }
+
 enum HOT_COLD {
     //% block="熱い"
     HOT,
@@ -56,12 +57,12 @@ namespace PSW {
     }
 
     let _今まで暗い: boolean = false;
-    const _暗い判定閾値: number = 4;
-    const _明るい判定閾値: number = 7;
+    const _暗い判定閾値: number = 60;
+    const _明るい判定閾値: number = 65;
     const _HYSTERESIS: number = _明るい判定閾値 - _暗い判定閾値;
 
     /**
-     * 明るさセンサーが暗い場合（5未満）に真を返します。
+     * 明るさセンサーが暗い場合（60未満）に真を返します。
      */
     //% blockId=is_dark block="暗い"
     //% weight=70
