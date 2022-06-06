@@ -1,8 +1,8 @@
 enum DARK_BRIGHT {
-    //% block="明るい"
-    IS_BRIGHT,
     //% block="暗い"
     IS_DARK,
+    //% block="明るい"
+    IS_BRIGHT,
 }
 
 enum HOT_COLD {
